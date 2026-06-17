@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    scroll-behavior: smooth;
+  }
+
+  /* Anchor links land below the sticky header, not under it. */
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #d8a24a;
+    color: #1a1304;
+  }
+
+  /* Visible keyboard focus everywhere — never remove the outline silently. */
+  :focus-visible {
+    outline: 2px solid #d8a24a;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced-motion: kill smooth scroll + animations. */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+
+  /* Expanded width (wdth axis) is what gives the display font its nameplate feel. */
+  .font-display {
+    font-stretch: 125%;
+  }
+
+  .eyebrow {
+    @apply font-display text-xs font-semibold uppercase tracking-[0.2em] text-chrome;
+    font-stretch: 125%;
+  }
+
+  /* Wide display headings, tight leading — the automotive-badge voice. */
+  .h-display {
+    @apply font-display font-bold uppercase leading-[1.02] tracking-[-0.01em];
+    font-stretch: 125%;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg font-body text-sm font-semibold transition-colors duration-200 focus-visible:outline-offset-4;
+  }
+
+  .btn-primary {
+    @apply btn bg-chrome px-6 py-3.5 text-ink hover:bg-chrome-light;
+  }
+
+  .btn-ghost {
+    @apply btn border border-steel/40 bg-transparent px-6 py-3.5 text-bone hover:border-bone/60 hover:bg-white/5;
+  }
+
+  .btn-dark {
+    @apply btn border border-ink/15 bg-ink px-6 py-3.5 text-bone hover:bg-panel;
+  }
+
+  /* Thin chrome divider — the "reflection sweep" motif between bands. */
+  .chrome-rule {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-chrome/50 to-transparent;
+  }
+}
