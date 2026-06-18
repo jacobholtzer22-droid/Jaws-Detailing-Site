@@ -157,6 +157,15 @@ export default function BeforeAfterSlider() {
         <p className="mt-5 text-center text-xs text-steel">
           Drag the handle, or focus it and use the arrow keys.
         </p>
+
+        <div className="mt-10 flex flex-col items-center gap-3 text-center">
+          <p className="font-display text-base font-semibold uppercase tracking-wide text-bone">
+            {site.cta.afterSliderKicker}
+          </p>
+          <a href={site.cta.href} className="btn-primary px-7 py-4 text-base">
+            {site.cta.label}
+          </a>
+        </div>
       </div>
     </section>
   );

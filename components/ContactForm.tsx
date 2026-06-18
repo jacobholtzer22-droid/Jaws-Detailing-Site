@@ -69,8 +69,9 @@ export default function ContactForm() {
   }
 
   /* ---- Form ---- */
+  // text-base (16px) is deliberate: anything smaller makes iOS Safari auto-zoom on focus.
   const inputClass =
-    "w-full rounded-xl border border-ink/15 bg-white px-4 py-3.5 text-[15px] text-ink placeholder:text-ink/35 focus:border-chrome focus:outline-none focus-visible:outline-none";
+    "w-full rounded-xl border border-ink/15 bg-white px-4 py-3.5 text-base text-ink placeholder:text-ink/35 focus:border-chrome focus:outline-none focus-visible:outline-none";
   const labelClass = "mb-1.5 block text-sm font-semibold text-ink";
 
   return (

@@ -64,6 +64,15 @@ export default function Reviews() {
             );
           })}
         </div>
+
+        <div className="mt-12 flex flex-col items-center gap-3 text-center">
+          <p className="font-display text-base font-semibold uppercase tracking-wide text-bone">
+            {site.cta.afterReviewsKicker}
+          </p>
+          <a href={site.cta.href} className="btn-primary px-7 py-4 text-base">
+            {site.cta.label}
+          </a>
+        </div>
       </div>
     </section>
   );

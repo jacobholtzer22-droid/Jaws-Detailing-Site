@@ -10,7 +10,7 @@ export default function Contact() {
     <Section id="contact" tone="bone">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div>
-          <p className="eyebrow mb-4 text-chrome-dark">{contact.eyebrow}</p>
+          <p className="eyebrow mb-4 text-chrome-deep">{contact.eyebrow}</p>
           <h2 className="h-display text-3xl text-ink sm:text-5xl">
             {contact.heading}
           </h2>

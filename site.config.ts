@@ -295,6 +295,20 @@ export const site = {
       "Something went wrong sending that. Please call or text us at",
   },
 
+  /* --- Primary CTA (reused everywhere a "book" action appears) ---
+   * Keeps the conversion CTA copy in one place: header, hero, section CTAs,
+   * and the sticky mobile bar all read from here.
+   */
+  cta: {
+    label: "Book a detail",
+    href: "#contact",
+    // Short kickers shown above the CTA at high-intent moments.
+    afterSliderKicker: "Want results like this on your car?",
+    afterReviewsKicker: "Ready for the 5-star treatment?",
+    // Sticky mobile bar
+    callLabel: "Call",
+  },
+
   /* --- Nav (anchor links on a single page) --- */
   nav: [
     { label: "Services", href: "#services" },

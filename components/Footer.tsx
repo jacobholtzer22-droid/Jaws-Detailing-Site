@@ -7,7 +7,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-ink-deep text-bone">
-      <div className="container-page py-16">
+      {/* Extra bottom padding on mobile so the sticky CTA bar never covers the credit. */}
+      <div className="container-page py-16 pb-28 lg:pb-16">
         <div className="grid gap-10 lg:grid-cols-4">
           {/* Brand + contact */}
           <div className="lg:col-span-2">
@@ -20,7 +21,7 @@ export default function Footer() {
             </p>
             <a
               href={site.business.phoneHref}
-              className="mt-5 inline-flex items-center gap-2 font-display text-lg font-bold text-bone transition-colors hover:text-chrome"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-2 font-display text-lg font-bold text-bone transition-colors hover:text-chrome"
             >
               <Phone className="h-5 w-5 text-chrome" aria-hidden="true" />
               {site.business.phoneDisplay}
@@ -36,12 +37,12 @@ export default function Footer() {
             <h2 className="text-xs font-semibold uppercase tracking-wider text-steel">
               Explore
             </h2>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-2">
               {site.nav.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm text-steel-light transition-colors hover:text-bone"
+                    className="inline-flex min-h-[44px] items-center text-sm text-steel-light transition-colors hover:text-bone"
                   >
                     {item.label}
                   </a>

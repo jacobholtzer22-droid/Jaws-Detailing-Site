@@ -7,7 +7,7 @@ export default function ServiceArea() {
     <Section id="service-area" tone="bone">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-16">
         <div>
-          <p className="eyebrow mb-4 text-chrome-dark">Service area</p>
+          <p className="eyebrow mb-4 text-chrome-deep">Service area</p>
           <h2 className="h-display text-3xl text-ink sm:text-4xl">
             We come to you,
             <br />

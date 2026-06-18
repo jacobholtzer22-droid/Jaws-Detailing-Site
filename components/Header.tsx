@@ -55,18 +55,18 @@ export default function Header() {
             <Phone className="h-4 w-4 text-chrome" aria-hidden="true" />
             {site.business.phoneDisplay}
           </a>
-          <a href="#contact" className="btn-primary hidden sm:inline-flex">
-            Book a detail
+          <a href={site.cta.href} className="btn-primary hidden sm:inline-flex">
+            {site.cta.label}
           </a>
 
-          {/* Mobile: call + menu */}
+          {/* Mobile: call + menu (min-h keeps the tap target >=44px) */}
           <a
             href={site.business.phoneHref}
-            className="btn-primary px-4 py-2.5 sm:hidden"
+            className="btn-primary min-h-[44px] px-4 py-2.5 sm:hidden"
             aria-label={`Call ${site.business.name}`}
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
-            Call
+            {site.cta.callLabel}
           </a>
           <button
             type="button"
@@ -100,11 +100,11 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="#contact"
+              href={site.cta.href}
               onClick={() => setOpen(false)}
               className="btn-primary mt-4"
             >
-              Book a detail
+              {site.cta.label}
             </a>
           </div>
         </nav>

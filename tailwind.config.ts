@@ -17,7 +17,12 @@ const config: Config = {
       colors: {
         ink: { DEFAULT: "#0E1318", deep: "#0A0E12", raised: "#11171F" },
         panel: { DEFAULT: "#19222E", light: "#222E3D", dark: "#141B24" },
-        chrome: { DEFAULT: "#D8A24A", dark: "#C28C36", light: "#E7C078" },
+        chrome: {
+          DEFAULT: "#D8A24A",
+          dark: "#C28C36",
+          light: "#E7C078",
+          deep: "#8A5A1C", // on-light eyebrows: ~5.2:1 on bone (AA)
+        },
         reflect: { DEFAULT: "#7FA9C9", dark: "#5E8CB0", light: "#A6C4DC" },
         bone: { DEFAULT: "#F4F1EA", dark: "#E8E3D8" },
         steel: { DEFAULT: "#8A97A6", dark: "#6E7C8B", light: "#AAB4C0" },

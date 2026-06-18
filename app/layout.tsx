@@ -46,7 +46,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body className="bg-ink font-body text-bone antialiased">{children}</body>
+      <body className="bg-ink font-body text-bone antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-chrome focus:px-4 focus:py-2 focus:font-semibold focus:text-ink"
+        >
+          Skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

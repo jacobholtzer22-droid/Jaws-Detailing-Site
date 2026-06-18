@@ -9,7 +9,7 @@ export default function InteriorSection() {
     <section className="bg-bone py-20 text-ink sm:py-28">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <p className="eyebrow mb-4 text-chrome-dark">{interior.eyebrow}</p>
+          <p className="eyebrow mb-4 text-chrome-deep">{interior.eyebrow}</p>
           <h2 className="h-display text-3xl text-ink sm:text-4xl">
             {interior.heading}
           </h2>

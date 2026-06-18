@@ -5,7 +5,7 @@ export default function Services() {
   return (
     <Section id="services" tone="bone">
       <div className="max-w-2xl">
-        <p className="eyebrow mb-4 text-chrome-dark">What we do</p>
+        <p className="eyebrow mb-4 text-chrome-deep">What we do</p>
         <h2 className="h-display text-3xl text-ink sm:text-4xl">
           Detailing services, done right.
         </h2>
@@ -38,8 +38,8 @@ export default function Services() {
       </ul>
 
       <div className="mt-10">
-        <a href="#contact" className="btn-dark px-7 py-4 text-base">
-          Book a detail
+        <a href={site.cta.href} className="btn-dark px-7 py-4 text-base">
+          {site.cta.label}
         </a>
       </div>
     </Section>
