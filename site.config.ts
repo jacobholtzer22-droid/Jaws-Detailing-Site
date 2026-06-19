@@ -435,10 +435,50 @@ export const site = {
     detailOtherHeading: "Other services",
   },
 
+  /* --- Gallery / "Our work" page ---
+   * Add or swap shots by editing this list. Each image is shown in a 4:3 grid.
+   */
+  gallery: {
+    eyebrow: "Our work",
+    heading: "Real cars, real results.",
+    sub: "A look at recent details across Southeast Michigan — inside and out, cars, trucks, and SUVs. We come to you for every one of these.",
+    images: [
+      {
+        src: "/images/gallery/lexus.jpg",
+        alt: "A freshly detailed sage-green Lexus ES sedan gleaming in a driveway",
+      },
+      {
+        src: "/images/gallery/kia-front.jpg",
+        alt: "A clean, glossy dark-green Kia Sorento SUV after a full detail",
+      },
+      {
+        src: "/images/gallery/kia-side.jpg",
+        alt: "A detailed dark-green Kia Sorento with the door open, paint shining",
+      },
+      {
+        src: "/images/gallery/kia-foam.jpg",
+        alt: "A Kia Sorento covered in wash foam during an on-site exterior detail",
+      },
+      {
+        src: "/images/gallery/crv-interior.jpg",
+        alt: "Clean, conditioned black leather rear seats in a detailed Honda CR-V",
+      },
+      {
+        src: "/images/gallery/rav4.jpg",
+        alt: "A silver Toyota RAV4 being detailed on-site with the doors open",
+      },
+      {
+        src: "/images/gallery/chevy.jpg",
+        alt: "A white Chevrolet Trailblazer with the hatch and doors open during a detail",
+      },
+    ],
+  },
+
   /* --- Nav (top-level pages) --- */
   nav: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services/" },
+    { label: "Gallery", href: "/gallery/" },
     { label: "About", href: "/about/" },
     { label: "Get a quote", href: "/get-a-quote/" },
   ],
@@ -459,6 +499,12 @@ export const site = {
         title: "Detailing Services — Jaws Auto Detailing | Southeast Michigan",
         description:
           "All of our mobile detailing services: full details, interior cleaning, hand waxing, clay bar, engine bay, and full body washes. We come to you across Southeast Michigan.",
+      },
+      gallery: {
+        path: "/gallery/",
+        title: "Our Work — Jaws Auto Detailing | Mobile Detailing Gallery",
+        description:
+          "See recent mobile detailing work from Jaws Auto Detailing across Southeast Michigan — finished exteriors, clean interiors, and on-site details.",
       },
       about: {
         path: "/about/",
