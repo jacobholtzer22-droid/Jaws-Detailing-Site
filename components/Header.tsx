@@ -20,7 +20,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isActive = (href: string) => strip(pathname || "/") === strip(href);
+  const isActive = (href: string) => {
+    const cur = strip(pathname || "/");
+    const target = strip(href);
+    if (target === "/") return cur === "/";
+    // Highlight a section (e.g. Services) on its sub-pages too.
+    return cur === target || cur.startsWith(`${target}/`);
+  };
 
   return (
     <header

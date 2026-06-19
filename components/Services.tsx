@@ -1,4 +1,7 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Section from "./Section";
+import ServiceCard from "./ServiceCard";
 import { site } from "@/site.config";
 
 export default function Services() {
@@ -16,29 +19,19 @@ export default function Services() {
       </div>
 
       <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
-        {site.services.map((service) => {
-          const Icon = service.icon;
-          return (
-            <li
-              key={service.title}
-              className="group flex flex-col gap-4 bg-bone p-7 transition-colors hover:bg-bone-dark"
-            >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-ink text-chrome">
-                <Icon className="h-6 w-6" aria-hidden="true" />
-              </span>
-              <h3 className="font-display text-lg font-bold uppercase tracking-tight text-ink">
-                {service.title}
-              </h3>
-              <p className="text-[15px] leading-relaxed text-ink/65">
-                {service.description}
-              </p>
-            </li>
-          );
-        })}
+        {site.services.map((service) => (
+          <li key={service.slug} className="flex">
+            <ServiceCard service={service} />
+          </li>
+        ))}
       </ul>
 
-      <div className="mt-10">
-        <a href={site.cta.href} className="btn-dark px-7 py-4 text-base">
+      <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Link href="/services/" className="btn-dark px-7 py-4 text-base">
+          See all services
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+        <a href={site.cta.href} className="btn-primary px-7 py-4 text-base">
           {site.cta.label}
         </a>
       </div>

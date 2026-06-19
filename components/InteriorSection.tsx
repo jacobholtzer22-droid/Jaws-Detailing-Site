@@ -31,7 +31,7 @@ export default function InteriorSection() {
         </div>
 
         {/* Interior photo — Chevy wheel + leather */}
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-ink/10">
+        <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-ink/10 sm:aspect-[4/5]">
           <ImagePlaceholder
             image={site.images.interior}
             sizes="(min-width: 1024px) 50vw, 100vw"

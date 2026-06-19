@@ -22,7 +22,14 @@ import {
 
 export type Service = {
   title: string;
+  /** URL slug for the /services/<slug>/ detail page. */
+  slug: string;
+  /** Short, card-level description. */
   description: string;
+  /** Longer paragraph for the service detail page. */
+  longDescription: string;
+  /** "What's included" bullets on the detail page. */
+  includes: string[];
   icon: LucideIcon;
 };
 
@@ -114,38 +121,104 @@ export const site = {
   services: [
     {
       title: "Full Detail",
+      slug: "full-detail",
       description:
         "Inside and out, top to bottom — every surface cleaned and the paint brought back to a deep shine. You get the car back like the day you drove it home.",
+      longDescription:
+        "Our most complete package — inside and out, top to bottom. We start with a thorough hand wash, decontaminate and protect the paint, then move inside to vacuum, wipe, and condition every surface. It's the reset button for your car: it comes back looking, smelling, and feeling like the day you drove it off the lot.",
+      includes: [
+        "Full exterior hand wash — wheels and trim included",
+        "Clay bar and hand wax for a deep, glossy finish",
+        "Complete interior vacuum — seats, carpets, and mats",
+        "Dash, console, vents, and door panels wiped and conditioned",
+        "Interior and exterior glass cleaned streak-free",
+        "Done at your home or office — we come to you",
+      ],
       icon: Sparkles,
     },
     {
       title: "Interior Vacuuming",
+      slug: "interior-vacuuming",
       description:
         "Seats, carpets, floor mats, and every cupholder and crevice vacuumed out, so the inside feels fresh and lived-in again.",
+      longDescription:
+        "Life happens inside your car — crumbs, dust, sand, pet hair, the works. We pull the floor mats and get into every seat track, cupholder, and crevice with professional-grade equipment, so the cabin feels fresh again instead of cluttered and gritty.",
+      includes: [
+        "Front and rear seats vacuumed",
+        "Carpets and removable floor mats",
+        "Trunk and cargo area",
+        "Cupholders, console, and door pockets",
+        "Seat tracks and tight crevices",
+        "Pet hair removal available",
+      ],
       icon: Wind,
     },
     {
       title: "Car Waxing",
+      slug: "car-waxing",
       description:
         "A hand-applied wax that wakes up the color, adds a glossy finish, and helps your paint shed water, dirt, and Michigan road salt.",
+      longDescription:
+        "A good wax does two things: it makes the color pop with a deep, glossy shine, and it lays down a protective layer that helps your paint shed water, road grime, and Michigan winter salt. We apply it by hand so it goes on even and lasts — no swirl marks, no shortcuts.",
+      includes: [
+        "Hand-applied premium wax",
+        "Brings back deep gloss and color depth",
+        "Protects against water spots and road salt",
+        "Smooth, slick finish that's easier to keep clean",
+        "Wheels and trim dressed",
+        "Pairs perfectly with a clay bar treatment",
+      ],
       icon: Droplets,
     },
     {
       title: "Clay Bar Treatment",
+      slug: "clay-bar-treatment",
       description:
         "We lift the bonded grime and road fallout that ordinary washing leaves behind, so the paint feels glass-smooth to the touch.",
+      longDescription:
+        "Even after washing, your paint holds onto bonded contaminants — road fallout, overspray, tar — that you can feel as roughness. A clay bar gently lifts all of it, leaving the surface glass-smooth and ready to take wax. It's the step that makes the difference between 'clean' and 'showroom.'",
+      includes: [
+        "Removes bonded grime washing leaves behind",
+        "Lifts road and rail fallout, overspray, and tar",
+        "Leaves paint glass-smooth to the touch",
+        "Preps the surface so wax bonds better",
+        "Restores slickness and clarity",
+        "Recommended before any wax or sealant",
+      ],
       icon: Layers,
     },
     {
       title: "Engine Detailing",
+      slug: "engine-detailing",
       description:
         "A careful clean under the hood that clears out grease and grime and leaves the engine bay looking sharp and well-kept.",
+      longDescription:
+        "The engine bay is the one place most people never clean — and it shows. We carefully degrease and clean under the hood, protecting the sensitive components, so everything looks sharp and well-kept. A clean engine bay also makes leaks and issues far easier to spot down the road.",
+      includes: [
+        "Careful degrease and clean of the engine bay",
+        "Sensitive components protected",
+        "Plastics and covers dressed and refreshed",
+        "Removes built-up grease and grime",
+        "Makes future maintenance cleaner",
+        "Great before a sale or trade-in",
+      ],
       icon: Wrench,
     },
     {
       title: "Full Body Wash",
+      slug: "full-body-wash",
       description:
         "A thorough hand wash of the whole exterior — wheels, trim, and glass included — with no harsh brushes, scratches, or swirl marks.",
+      longDescription:
+        "Not all washes are equal. We hand wash the whole exterior — paint, wheels, trim, and glass — using safe techniques and clean media so we never grind dirt back into your paint. No automated brushes, no swirl marks: just a proper wash that actually protects your finish.",
+      includes: [
+        "Gentle hand wash of the full exterior",
+        "Wheels, tires, and trim cleaned",
+        "All glass cleaned streak-free",
+        "Safe wash method — no swirl marks",
+        "Hand-dried to prevent water spots",
+        "A great regular maintenance option",
+      ],
       icon: CarFront,
     },
   ] satisfies Service[],
@@ -353,9 +426,19 @@ export const site = {
     sub: "Book a detail in under a minute — we'll text you back fast with a time and a price.",
   },
 
-  /* --- Nav (top-level pages — mirrors jawslawnandsnow.com) --- */
+  /* --- Services index page copy --- */
+  servicesPage: {
+    eyebrow: "Services",
+    heading: "Everything we can do for your car.",
+    sub: "From a quick maintenance wash to a full inside-and-out detail. Tap any service to see exactly what's included — and remember, we come to you.",
+    detailIncludesHeading: "What's included",
+    detailOtherHeading: "Other services",
+  },
+
+  /* --- Nav (top-level pages) --- */
   nav: [
     { label: "Home", href: "/" },
+    { label: "Services", href: "/services/" },
     { label: "About", href: "/about/" },
     { label: "Get a quote", href: "/get-a-quote/" },
   ],
@@ -370,6 +453,12 @@ export const site = {
         title: "Jaws Auto Detailing — Mobile Car Detailing in Southeast Michigan",
         description:
           "Mobile auto detailing in Southeast Michigan. We come to you — full details, waxing, clay bar, interior cleaning, and more. 5.0 on Google. Book a detail today.",
+      },
+      services: {
+        path: "/services/",
+        title: "Detailing Services — Jaws Auto Detailing | Southeast Michigan",
+        description:
+          "All of our mobile detailing services: full details, interior cleaning, hand waxing, clay bar, engine bay, and full body washes. We come to you across Southeast Michigan.",
       },
       about: {
         path: "/about/",
@@ -394,3 +483,11 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
+
+/** Readonly service item (site is `as const`, so use this for component props). */
+export type ServiceItem = (typeof site)["services"][number];
+
+/** Look up a service by its slug (used by the dynamic /services/<slug>/ route). */
+export function getServiceBySlug(slug: string): ServiceItem | undefined {
+  return site.services.find((s) => s.slug === slug);
+}
