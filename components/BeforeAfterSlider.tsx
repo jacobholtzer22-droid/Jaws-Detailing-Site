@@ -111,25 +111,25 @@ export default function BeforeAfterSlider() {
           onPointerCancel={onPointerUp}
           className="relative mx-auto mt-12 aspect-[16/10] w-full max-w-4xl touch-none select-none overflow-hidden rounded-2xl border border-white/10 sm:aspect-[16/9]"
         >
-          {/* Base layer: BEFORE (dirty), always full */}
+          {/* Base layer: AFTER (detailed), always full — shows on the right */}
           <div className="absolute inset-0">
-            <Layer image={images.beforeAfterBefore} tint="before" />
+            <Layer image={images.beforeAfterAfter} tint="after" />
           </div>
 
-          {/* Overlay: AFTER (detailed), clipped from the left up to `pos` */}
+          {/* Overlay: BEFORE (dirty), clipped from the left up to `pos` */}
           <div
             className="absolute inset-0"
             style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
           >
-            <Layer image={images.beforeAfterAfter} tint="after" />
+            <Layer image={images.beforeAfterBefore} tint="before" />
           </div>
 
-          {/* Corner labels */}
-          <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-ink/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-reflect backdrop-blur">
-            {beforeAfter.afterLabel}
-          </span>
-          <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-ink/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-steel-light backdrop-blur">
+          {/* Corner labels — before on the left, after on the right */}
+          <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-ink/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-steel-light backdrop-blur">
             {beforeAfter.beforeLabel}
+          </span>
+          <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-ink/75 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-chrome backdrop-blur">
+            {beforeAfter.afterLabel}
           </span>
 
           {/* Chrome seam + handle */}
@@ -141,11 +141,11 @@ export default function BeforeAfterSlider() {
             <button
               type="button"
               role="slider"
-              aria-label="Drag to compare before and after"
+              aria-label="Drag to compare before (left) and after (right)"
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={Math.round(pos)}
-              aria-valuetext={`${Math.round(pos)}% detailed`}
+              aria-valuetext={`${Math.round(pos)}% before, ${100 - Math.round(pos)}% after`}
               onKeyDown={onKeyDown}
               className="pointer-events-auto absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border-2 border-chrome bg-ink text-chrome shadow-lg"
             >

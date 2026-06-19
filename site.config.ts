@@ -340,12 +340,12 @@ export const site = {
       placeholderLabel: "Interior — clean steering wheel + leather",
     },
     beforeAfterBefore: {
-      src: "/images/before.jpg",
+      src: "/images/cargo-before.jpg",
       alt: "An SUV cargo area before detailing — rear seats and carpet dusty and covered in debris",
       placeholderLabel: "Before — dirty cargo (same SUV as After)",
     },
     beforeAfterAfter: {
-      src: "/images/after.jpg",
+      src: "/images/cargo-after.jpg",
       alt: "The same SUV cargo area after detailing — seats and carpet vacuumed clean and spotless",
       placeholderLabel: "After — clean cargo (same SUV as Before)",
     },
