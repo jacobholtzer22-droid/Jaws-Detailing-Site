@@ -20,6 +20,18 @@ export default function Reviews() {
               <Star key={i} className="h-6 w-6 fill-chrome text-chrome" aria-hidden="true" />
             ))}
           </div>
+
+          {reviews.googleReviewUrl ? (
+            <a
+              href={reviews.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost mt-6 inline-flex px-6 py-3 text-sm"
+            >
+              <Star className="h-4 w-4 fill-chrome text-chrome" aria-hidden="true" />
+              Leave us a {reviews.source} review
+            </a>
+          ) : null}
         </div>
 
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">

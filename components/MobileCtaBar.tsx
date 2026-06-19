@@ -1,41 +1,47 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Phone } from "lucide-react";
 import { site } from "@/site.config";
 
+const strip = (p: string) => p.replace(/\/+$/, "") || "/";
+
 /**
  * Sticky bottom CTA bar for mobile/tablet (lg:hidden). Keeps click-to-call and
- * "Book a detail" under the thumb while browsing. Auto-hides over the hero and
- * the contact section, where those CTAs already live, so it's never redundant.
+ * "Book a detail" under the thumb. Hidden over the home hero (CTAs already there)
+ * and on the Get a Quote page (that page IS the form).
  */
 export default function MobileCtaBar() {
+  const pathname = usePathname();
+  const onQuotePage = strip(pathname || "/") === strip(site.cta.href);
   const [show, setShow] = useState(false);
-  const heroVisible = useRef(false);
-  const contactVisible = useRef(false);
 
   useEffect(() => {
-    const update = () => setShow(!heroVisible.current && !contactVisible.current);
-    const observe = (id: string, ref: { current: boolean }) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          ref.current = entry.isIntersecting;
-          update();
-        },
-        { threshold: 0 }
-      );
-      obs.observe(el);
-      return obs;
+    if (onQuotePage) {
+      setShow(false);
+      return;
+    }
+    // Interior pages (no hero) keep the CTA available; home shows it once the
+    // hero has scrolled out of view. Look the hero up on each call so we never
+    // depend on it being present at mount. setShow is a no-op when the value is
+    // unchanged, so this stays cheap on every scroll event.
+    const compute = () => {
+      const hero = document.getElementById("top");
+      if (!hero) {
+        setShow(true);
+        return;
+      }
+      setShow(hero.getBoundingClientRect().bottom < 80);
     };
-    const o1 = observe("top", heroVisible);
-    const o2 = observe("contact", contactVisible);
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
     return () => {
-      o1?.disconnect();
-      o2?.disconnect();
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
     };
-  }, []);
+  }, [onQuotePage]);
 
   return (
     <div

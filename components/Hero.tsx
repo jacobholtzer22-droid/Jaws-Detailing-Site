@@ -17,6 +17,8 @@ export default function Hero() {
         {/* Scrim: obsidian pooling up from the bottom so copy stays legible. */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-transparent to-transparent" />
+        {/* Top scrim keeps the transparent header legible over bright photos. */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/70 to-transparent" />
       </div>
 
       <div className="container-page w-full pb-16 pt-28 sm:pb-24">
@@ -36,7 +38,7 @@ export default function Hero() {
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href="#contact" className="btn-primary px-7 py-4 text-base">
+            <a href={site.cta.href} className="btn-primary px-7 py-4 text-base">
               {copy.primaryCta}
             </a>
             <a

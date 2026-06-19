@@ -16,7 +16,7 @@ export default function ServiceArea() {
           <p className="mt-4 max-w-md text-base text-ink/60">
             {site.serviceAreaNote}
           </p>
-          <a href="#contact" className="btn-dark mt-7 px-7 py-4 text-base">
+          <a href={site.cta.href} className="btn-dark mt-7 px-7 py-4 text-base">
             Check your area
           </a>
         </div>

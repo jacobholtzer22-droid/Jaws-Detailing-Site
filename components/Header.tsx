@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, Menu, X } from "lucide-react";
 import { site } from "@/site.config";
 
+const strip = (p: string) => p.replace(/\/+$/, "") || "/";
+
 export default function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -14,6 +19,8 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isActive = (href: string) => strip(pathname || "/") === strip(href);
 
   return (
     <header
@@ -25,26 +32,32 @@ export default function Header() {
     >
       <div className="container-page flex h-16 items-center justify-between gap-4">
         {/* Wordmark (TODO: swap for logo image if Joey provides one) */}
-        <a
-          href="#top"
+        <Link
+          href="/"
           className="h-display text-lg text-bone sm:text-xl"
-          aria-label={`${site.business.name} — back to top`}
+          aria-label={`${site.business.name} — home`}
         >
           {site.business.shortName}
           <span className="text-chrome">.</span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-          {site.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-steel-light transition-colors hover:text-bone"
-            >
-              {item.label}
-            </a>
-          ))}
+          {site.nav.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`text-sm font-medium transition-colors ${
+                  active ? "text-chrome" : "text-steel-light hover:text-bone"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -55,9 +68,9 @@ export default function Header() {
             <Phone className="h-4 w-4 text-chrome" aria-hidden="true" />
             {site.business.phoneDisplay}
           </a>
-          <a href={site.cta.href} className="btn-primary hidden sm:inline-flex">
+          <Link href={site.cta.href} className="btn-primary hidden sm:inline-flex">
             {site.cta.label}
-          </a>
+          </Link>
 
           {/* Mobile: call + menu (min-h keeps the tap target >=44px) */}
           <a
@@ -89,23 +102,29 @@ export default function Header() {
           className="border-t border-white/10 bg-ink/95 backdrop-blur lg:hidden"
         >
           <div className="container-page flex flex-col py-3">
-            {site.nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-white/5 py-3 text-base font-medium text-steel-light transition-colors hover:text-bone"
-              >
-                {item.label}
-              </a>
-            ))}
-            <a
+            {site.nav.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`border-b border-white/5 py-3 text-base font-medium transition-colors ${
+                    active ? "text-chrome" : "text-steel-light hover:text-bone"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <Link
               href={site.cta.href}
               onClick={() => setOpen(false)}
               className="btn-primary mt-4"
             >
               {site.cta.label}
-            </a>
+            </Link>
           </div>
         </nav>
       )}

@@ -28,3 +28,6 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# Raw source photos (originals; optimized web versions are committed in public/images)
+/Jaws Detailing Photos/

@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Hanken_Grotesk } from "next/font/google";
 import { site } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import MobileCtaBar from "@/components/MobileCtaBar";
 import "./globals.css";
 
 /* Display: Archivo loaded with the width axis so we can run it expanded
@@ -21,18 +25,11 @@ const body = Hanken_Grotesk({
   display: "swap",
 });
 
+// Default metadata = home page. Each route can override via its own pageMetadata().
 export const metadata: Metadata = {
   metadataBase: new URL(site.seo.url),
-  title: site.seo.title,
-  description: site.seo.description,
-  openGraph: {
-    title: site.seo.title,
-    description: site.seo.description,
-    url: site.seo.url,
-    siteName: site.business.name,
-    type: "website",
-  },
   robots: { index: true, follow: true },
+  ...pageMetadata("home"),
 };
 
 export const viewport: Viewport = {
@@ -53,7 +50,10 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <MobileCtaBar />
       </body>
     </html>
   );

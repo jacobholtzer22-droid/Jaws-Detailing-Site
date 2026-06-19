@@ -67,6 +67,7 @@ export const site = {
     phoneHref: "tel:+17342622365",
     region: "Southeast Michigan",
     email: "", // TODO: add Joey's public contact email if he wants one shown
+    address: "", // TODO: street address if he wants one shown (mobile biz — optional). e.g. "Belleville, MI"
   },
 
   /* --- Positioning ---------------------------------------------------------
@@ -219,7 +220,13 @@ export const site = {
   reviews: {
     rating: 5.0,
     source: "Google",
+    // One-click "leave a review" link from Joe's Google Business Profile
+    // (Business Profile -> "Ask for reviews"). Paste the shareable URL — usually
+    // https://g.page/r/<id>/review or https://search.google.com/local/writereview?placeid=...
+    // The raw Google review data blob is NOT a usable URL on its own.
+    googleReviewUrl: "", // TODO: paste Joe's review link
     quotes: [
+      // TODO: paste Joe's 2 Google reviews verbatim (quote + first name). Do not invent.
       { quote: "", author: "", context: "Google review" },
       { quote: "", author: "", context: "Google review" },
     ] satisfies Review[],
@@ -245,29 +252,29 @@ export const site = {
    */
   images: {
     hero: {
-      src: "", // -> /images/hero-lexus.jpg
-      alt: "Freshly detailed dark Lexus sedan with a deep wet-look gloss reflecting the sky",
-      placeholderLabel: "Hero — dark Lexus sedan (the strongest shot)",
+      src: "/images/hero-lexus.jpg",
+      alt: "A freshly detailed sage-green Lexus ES sedan with a deep wet-look gloss, parked in a driveway",
+      placeholderLabel: "Hero — clean Lexus sedan (the strongest shot)",
     },
     process: {
-      src: "", // -> /images/suv-driveway-wash.jpg
-      alt: "An SUV being hand-washed in a residential driveway during a mobile detailing visit",
-      placeholderLabel: "Process — SUV being washed in a driveway",
+      src: "/images/mobile-detailing.jpg",
+      alt: "A silver Toyota RAV4 with its doors open being detailed on-site in a customer's driveway",
+      placeholderLabel: "Process — SUV being detailed in a driveway",
     },
     interior: {
-      src: "", // -> /images/chevy-interior.jpg
-      alt: "Detailed Chevrolet interior showing a clean steering wheel and conditioned leather seat",
-      placeholderLabel: "Interior — Chevy wheel + leather",
+      src: "/images/interior.jpg",
+      alt: "A detailed car interior with clean black leather seats, a spotless steering wheel and dashboard",
+      placeholderLabel: "Interior — clean steering wheel + leather",
     },
     beforeAfterBefore: {
-      src: "", // -> /images/before.jpg
-      alt: "Car panel before detailing, dull and covered in dirt and water spots",
-      placeholderLabel: "Before — dirty panel (same car as After)",
+      src: "/images/before.jpg",
+      alt: "An SUV cargo area before detailing — rear seats and carpet dusty and covered in debris",
+      placeholderLabel: "Before — dirty cargo (same SUV as After)",
     },
     beforeAfterAfter: {
-      src: "", // -> /images/after.jpg
-      alt: "The same car panel after detailing, polished to a deep reflective shine",
-      placeholderLabel: "After — finished panel (same car as Before)",
+      src: "/images/after.jpg",
+      alt: "The same SUV cargo area after detailing — seats and carpet vacuumed clean and spotless",
+      placeholderLabel: "After — clean cargo (same SUV as Before)",
     },
   } satisfies Record<string, SiteImage>,
 
@@ -301,7 +308,7 @@ export const site = {
    */
   cta: {
     label: "Book a detail",
-    href: "#contact",
+    href: "/get-a-quote/",
     // Short kickers shown above the CTA at high-intent moments.
     afterSliderKicker: "Want results like this on your car?",
     afterReviewsKicker: "Ready for the 5-star treatment?",
@@ -309,22 +316,75 @@ export const site = {
     callLabel: "Call",
   },
 
-  /* --- Nav (anchor links on a single page) --- */
+  /* --- About page ---------------------------------------------------------
+   * Mirrors the lawn site's About structure (core-values intro → a few
+   * "what we do" category blocks → contact info), adapted to detailing.
+   * ----------------------------------------------------------------------- */
+  about: {
+    eyebrow: "About Jaws",
+    heading: "Detailing done like it's our own car.",
+    intro:
+      "Interactions are at the heart of everything we do. We treat every vehicle — and every customer — like the only one that matters, and we don't pack up until it looks the way it should.",
+    story:
+      "Jaws Auto Detailing is a mobile detailing service based in Southeast Michigan. We bring professional-grade tools and products straight to your driveway, so you get a showroom finish without ever leaving home. No drop-off, no waiting room — just a cleaner, sharper car.",
+    categoriesHeading: "A full range of detailing.",
+    categories: [
+      {
+        title: "Exterior detailing",
+        description:
+          "Hand washes, clay bar, wax, and paint care that bring back the deep, wet-look shine and protect against Michigan weather.",
+      },
+      {
+        title: "Interior detailing",
+        description:
+          "Vacuuming, wipe-downs, leather and trim care — the cabin cleaned into every seam, not just the surfaces you can see.",
+      },
+      {
+        title: "We come to you",
+        description:
+          "Fully mobile service across Southeast Michigan. Book a time, send your address, and we handle the rest on-site.",
+      },
+    ],
+  },
+
+  /* --- Closing CTA band (home + about) --- */
+  ctaBand: {
+    heading: "Ready for a cleaner car?",
+    sub: "Book a detail in under a minute — we'll text you back fast with a time and a price.",
+  },
+
+  /* --- Nav (top-level pages — mirrors jawslawnandsnow.com) --- */
   nav: [
-    { label: "Services", href: "#services" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Before & after", href: "#before-after" },
-    { label: "Service area", href: "#service-area" },
-    { label: "Reviews", href: "#reviews" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about/" },
+    { label: "Get a quote", href: "/get-a-quote/" },
   ],
 
-  /* --- SEO --- */
+  /* --- SEO (per page; mirrors the lawn site's route structure) --- */
   seo: {
-    title: "Jaws Auto Detailing — Mobile Car Detailing in Southeast Michigan",
-    description:
-      "Mobile auto detailing in Southeast Michigan. We come to you — full details, waxing, clay bar, interior cleaning, and more. 5.0 on Google. Book a detail today.",
+    siteName: "Jaws Auto Detailing",
     url: "https://jawsautodetailing.com", // TODO: confirm final domain
+    pages: {
+      home: {
+        path: "/",
+        title: "Jaws Auto Detailing — Mobile Car Detailing in Southeast Michigan",
+        description:
+          "Mobile auto detailing in Southeast Michigan. We come to you — full details, waxing, clay bar, interior cleaning, and more. 5.0 on Google. Book a detail today.",
+      },
+      about: {
+        path: "/about/",
+        title:
+          "About — Jaws Auto Detailing | Mobile Detailing in Southeast Michigan",
+        description:
+          "Meet Jaws Auto Detailing: a mobile car detailing service in Southeast Michigan that treats every vehicle like its own. Exterior, interior, and full details — we come to you.",
+      },
+      quote: {
+        path: "/get-a-quote/",
+        title: "Get a Quote — Jaws Auto Detailing | Mobile Car Detailing",
+        description:
+          "Get a fast, free quote for mobile car detailing in Southeast Michigan. Tell us about your car and we'll text you back with a time and a price.",
+      },
+    },
   },
 
   /* --- Footer --- */
