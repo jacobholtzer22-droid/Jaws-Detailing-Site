@@ -29,8 +29,8 @@ function Layer({
   // Placeholder so the slider is legible before real photos arrive.
   const styles =
     tint === "before"
-      ? "bg-[#2A2620] text-[#8A7B63]"
-      : "bg-[#1E2C3A] text-reflect";
+      ? "bg-panel-dark text-steel"
+      : "bg-[#2A0E12] text-chrome-light";
   return (
     <div
       role="img"

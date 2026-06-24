@@ -1,10 +1,17 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Brand palette = "Wet Clearcoat".
- * Derived from what a glossy dark car reflects: warm sunset (chrome) + cool sky (reflect)
- * over a blue-leaning obsidian base. Intentionally NOT carbon-black + neon.
- * Token names are semantic so they never shadow Tailwind's default scales.
+ * Brand palette = "Jaws — Navy / Red / White" (matches the logo).
+ * Deep navy base, a clean automotive red as the single accent/CTA color, and
+ * a cool near-white for light surfaces and text on navy.
+ * Token names are intentionally semantic (legacy "chrome"/"reflect"/"bone" names
+ * are kept so the whole site re-skins from here) and never shadow Tailwind's scales.
+ *   ink    → navy base/background
+ *   panel  → raised navy surfaces
+ *   chrome → RED accent + primary CTA
+ *   bone   → white / light surfaces + text on navy
+ *   steel  → muted blue-gray
+ *   reflect→ secondary sky-blue (sparingly used)
  */
 const config: Config = {
   content: [
@@ -15,17 +22,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: { DEFAULT: "#0E1318", deep: "#0A0E12", raised: "#11171F" },
-        panel: { DEFAULT: "#19222E", light: "#222E3D", dark: "#141B24" },
+        ink: { DEFAULT: "#0A1D38", deep: "#06122A", raised: "#102A4C" },
+        panel: { DEFAULT: "#122E54", light: "#1B3C68", dark: "#0C2244" },
         chrome: {
-          DEFAULT: "#D8A24A",
-          dark: "#C28C36",
-          light: "#E7C078",
-          deep: "#8A5A1C", // on-light eyebrows: ~5.2:1 on bone (AA)
+          DEFAULT: "#D72631", // brand red — accent + primary CTA (white text reads AA)
+          dark: "#B11E27",
+          light: "#E84853",
+          deep: "#9A1620", // on-light eyebrows/icons: ~7:1 on bone (AA)
         },
-        reflect: { DEFAULT: "#7FA9C9", dark: "#5E8CB0", light: "#A6C4DC" },
-        bone: { DEFAULT: "#F4F1EA", dark: "#E8E3D8" },
-        steel: { DEFAULT: "#8A97A6", dark: "#6E7C8B", light: "#AAB4C0" },
+        reflect: { DEFAULT: "#5B8AC2", dark: "#3F6EA8", light: "#88ABD6" },
+        bone: { DEFAULT: "#F7F9FC", dark: "#E6ECF4" },
+        steel: { DEFAULT: "#8FA3BC", dark: "#6C82A0", light: "#B0C1D6" },
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
