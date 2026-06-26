@@ -12,9 +12,31 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [vehicle, setVehicle] = useState("");
+  const [detailType, setDetailType] = useState("");
+  const [addOns, setAddOns] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [smsConsent, setSmsConsent] = useState(false); // real checkbox, never auto-true
   const [status, setStatus] = useState<Status>("idle");
+
+  function toggleAddOn(value: string) {
+    setAddOns((prev) =>
+      prev.includes(value) ? prev.filter((a) => a !== value) : [...prev, value]
+    );
+  }
+
+  // Fold the extra detailing answers INTO the message string. The CRM payload
+  // keys never change — those answers just ride along as structured text.
+  function buildMessage() {
+    const details = [
+      vehicle.trim() ? `Vehicle: ${vehicle.trim()}` : null,
+      detailType ? `Detail type: ${detailType}` : null,
+      addOns.length ? `Add-ons: ${addOns.join(", ")}` : null,
+    ].filter(Boolean);
+    const note = message.trim();
+    if (details.length === 0) return note;
+    return note ? `${details.join("\n")}\n---\n${note}` : details.join("\n");
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,7 +52,7 @@ export default function ContactForm() {
           name,
           phone,
           email,
-          message,
+          message: buildMessage(),
           smsConsent,
           businessSlug: crm.businessSlug,
         }),
@@ -57,10 +79,7 @@ export default function ContactForm() {
         <p className="mx-auto mt-3 max-w-md text-base text-ink/65">
           {contact.successBody}
         </p>
-        <a
-          href={business.phoneHref}
-          className="btn-dark mt-7 px-7 py-4 text-base"
-        >
+        <a href={business.phoneHref} className="btn-dark mt-7 px-7 py-4 text-base">
           <Phone className="h-4 w-4" aria-hidden="true" />
           {business.phoneDisplay}
         </a>
@@ -132,17 +151,90 @@ export default function ContactForm() {
       </div>
 
       <div className="mt-5">
+        <label htmlFor="vehicle" className={labelClass}>
+          {contact.vehicleLabel}
+        </label>
+        <input
+          id="vehicle"
+          name="vehicle"
+          type="text"
+          value={vehicle}
+          onChange={(e) => setVehicle(e.target.value)}
+          className={inputClass}
+          placeholder={contact.vehiclePlaceholder}
+        />
+      </div>
+
+      {/* Detail type — radio chips */}
+      <fieldset className="mt-5">
+        <legend className={labelClass}>{contact.detailTypeLabel}</legend>
+        <div className="flex flex-wrap gap-2">
+          {contact.detailTypes.map((type) => {
+            const active = detailType === type;
+            return (
+              <label
+                key={type}
+                className={`cursor-pointer rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors ${
+                  active
+                    ? "border-chrome bg-chrome/10 text-chrome-deep"
+                    : "border-ink/15 bg-white text-ink/70 hover:border-ink/30"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="detailType"
+                  value={type}
+                  checked={active}
+                  onChange={() => setDetailType(type)}
+                  className="sr-only"
+                />
+                {type}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      {/* Add-ons — checkboxes */}
+      <fieldset className="mt-5">
+        <legend className={labelClass}>{contact.addOnsLabel}</legend>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-2">
+          {contact.addOns.map((addOn) => {
+            const active = addOns.includes(addOn);
+            return (
+              <label
+                key={addOn}
+                className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-3.5 py-2.5 text-sm transition-colors ${
+                  active
+                    ? "border-chrome bg-chrome/10 text-chrome-deep"
+                    : "border-ink/15 bg-white text-ink/70 hover:border-ink/30"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => toggleAddOn(addOn)}
+                  className="h-4 w-4 shrink-0 accent-chrome"
+                />
+                {addOn}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <div className="mt-5">
         <label htmlFor="message" className={labelClass}>
-          What does your car need?
+          Anything else? <span className="font-normal text-ink/40">(optional)</span>
         </label>
         <textarea
           id="message"
           name="message"
-          rows={4}
+          rows={3}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className={`${inputClass} resize-y`}
-          placeholder="Year, make & model, the service you want, and where the car is."
+          placeholder="Where the car is, the condition, a preferred time — anything that helps."
         />
       </div>
 
