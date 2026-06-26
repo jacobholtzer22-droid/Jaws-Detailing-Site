@@ -4,6 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import ServiceAreaDetail from "@/components/ServiceAreaDetail";
 import CtaBand from "@/components/CtaBand";
 import { site, getServiceAreaBySlug } from "@/site.config";
+import { cityBreadcrumbJsonLd, jsonLdScript } from "@/lib/jsonld";
 
 type Params = { params: { city: string } };
 
@@ -37,6 +38,7 @@ export default function ServiceAreaPage({ params }: Params) {
   if (!city) notFound();
   return (
     <>
+      <script {...jsonLdScript(cityBreadcrumbJsonLd(city.name, city.slug))} />
       <PageHeader
         eyebrow="Service area"
         title={`Mobile detailing in ${city.name}`}

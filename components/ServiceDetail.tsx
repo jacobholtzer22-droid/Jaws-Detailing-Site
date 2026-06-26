@@ -45,6 +45,16 @@ export default function ServiceDetail({ service }: { service: ServiceItem }) {
                 </li>
               ))}
             </ul>
+
+            {/* Pricing — clearly-marked placeholder until Joey gives numbers. */}
+            <div className="mt-6 border-t border-ink/10 pt-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink/45">
+                Pricing
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/65">
+                {servicesPage.pricingNote}
+              </p>
+            </div>
           </div>
         </div>
       </section>
