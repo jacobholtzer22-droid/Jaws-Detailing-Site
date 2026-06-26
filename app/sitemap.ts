@@ -16,5 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.7,
   }));
-  return [...pages, ...servicePages];
+  const areaPages: MetadataRoute.Sitemap = site.serviceAreas.map((c) => ({
+    url: `${base}/service-areas/${c.slug}/`,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+  return [...pages, ...servicePages, ...areaPages];
 }
