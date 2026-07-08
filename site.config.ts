@@ -38,14 +38,6 @@ export type ProcessStep = {
   description: string;
 };
 
-export type Review = {
-  /** Leave quote empty ("") to render a clearly-marked placeholder slot. */
-  quote: string;
-  author: string;
-  /** e.g. "Google review" — shown under the author. */
-  context?: string;
-};
-
 export type DayHours = {
   /** 24h "HH:MM", or null when closed. */
   open: string | null;
@@ -73,8 +65,30 @@ export const site = {
     phoneDisplay: "(734) 262-2365",
     phoneHref: "tel:+17342622365",
     region: "Southeast Michigan",
+    // Primary city used in the hero headline + SEO. TODO: confirm Joey's main city.
+    // NOTE: this city is also written into hero.mobile.headline below — update both.
+    primaryCity: "Ann Arbor",
     email: "", // TODO: add Joey's public contact email if he wants one shown
     address: "", // TODO: street address if he wants one shown (mobile biz — optional). e.g. "Belleville, MI"
+  },
+
+  /* --- Social links ---
+   * Leave a value "" to hide that icon. No fabricated profiles — paste Joey's
+   * real handles before launch. TODO: confirm.
+   */
+  social: {
+    instagram: "", // e.g. "https://instagram.com/jawsautodetailing"
+    facebook: "",
+    tiktok: "",
+    youtube: "",
+  },
+
+  /* --- Top utility bar (thin strip above the nav) --- */
+  utilityBar: {
+    // Short serving line. {region}/{city} are filled in by the component.
+    message: "Mobile detailing across Southeast Michigan — we come to you",
+    // Small note on the right (desktop only), e.g. scheduling promise.
+    note: "Fast quotes by text",
   },
 
   /* --- Positioning ---------------------------------------------------------
@@ -88,11 +102,12 @@ export const site = {
    * ----------------------------------------------------------------------- */
   hero: {
     mobile: {
-      eyebrow: "Mobile detailing · we come to you",
-      headline: "Showroom shine,\nin your own driveway.",
-      sub: "We bring the full detailing studio to you — inside vacuumed and wiped down, paint clayed and waxed to a wet-look finish. You don't go anywhere.",
-      primaryCta: "Book a detail",
-      secondaryCta: "Call us",
+      eyebrow: "Mobile auto detailing · we come to you",
+      // City pattern (matches the brief). TODO: keep in sync with business.primaryCity.
+      headline: "Mobile detailing in the\nAnn Arbor area.",
+      sub: "We bring the full detailing studio to your driveway — inside vacuumed and wiped down, paint clayed and waxed to a wet-look finish. You don't go anywhere.",
+      primaryCta: "Start your quote",
+      secondaryCta: "Call now",
     },
     shop: {
       eyebrow: "Auto detailing studio · Southeast Michigan",
@@ -103,15 +118,16 @@ export const site = {
     },
   },
 
-  /* --- Trust strip (under the hero) --- */
+  /* --- Trust strip (under the hero) ---
+   * Real, defensible signals only — NO star ratings, review counts, or
+   * "#1 / top-rated" claims (Jaws is newer and can't back those yet).
+   */
   trust: {
-    rating: 5.0,
-    ratingSource: "Google",
     // Short proof points shown as a row. Keep to 3.
     points: [
-      "5.0 on Google",
+      "Satisfaction guaranteed",
       "We come to you",
-      "Cars, trucks & SUVs",
+      "Locally owned & operated",
     ],
   },
 
@@ -247,17 +263,205 @@ export const site = {
     ] satisfies ProcessStep[],
   },
 
-  /* --- Interior section (uses the Chevy interior photo) --- */
-  interior: {
-    eyebrow: "Interior detailing",
-    heading: "The inside, handled like it's our own.",
-    body: "Wheel, dash, console, leather, and every seam — vacuumed, wiped, and conditioned. We get into the spots a quick wash always misses, so the cabin smells clean and looks cared-for.",
-    bullets: [
-      "Seats, carpets & mats deep-vacuumed",
-      "Leather and trim wiped and conditioned",
-      "Cupholders, vents, and crevices detailed",
-      "Glass cleaned streak-free, inside and out",
+  /* --- Intro block (eyebrow + heading + two paragraphs + CTA + vertical photo) --- */
+  intro: {
+    eyebrow: "Detailing that comes to you",
+    heading: "A cleaner car, without the trip.",
+    body: [
+      "Most detail shops want you to drop your car off, find a ride, and wait around for a call. We do it the other way: tell us where the car is, and we bring the full setup to your driveway, your office lot, wherever it's parked.",
+      "You get a careful, hands-on detail — inside and out — without losing half a day to it. Same pro-grade products, same attention to the details, none of the hassle.",
     ],
+    cta: "Start your quote",
+    image: {
+      src: "/images/gallery/lexus.jpg",
+      alt: "A freshly detailed sedan gleaming in a driveway after a mobile detail",
+      placeholderLabel: "Intro — tall shot of a finished car (real Jaws photo)",
+    },
+  },
+
+  /* --- Popular services (numbered 01 / 02 / 03) ---
+   * The three pillars also power the cards under the hero, so they live here once.
+   * TODO: confirm Joey's three headline packages + final service lineup/pricing.
+   */
+  popular: {
+    eyebrow: "Popular services",
+    heading: "Three ways to get your car right.",
+    sub: "Pick the level your car needs — or tell us about it and we'll point you to the right one.",
+    allLabel: "See all services & pricing",
+    pillars: [
+      {
+        number: "01",
+        title: "Interior Detail",
+        href: "/services/interior-vacuuming/",
+        blurb:
+          "Seats, carpets, leather, glass, and every crevice — vacuumed, wiped, and conditioned until the cabin feels new again.",
+        icon: Wind,
+      },
+      {
+        number: "02",
+        title: "Exterior Detail",
+        href: "/services/full-body-wash/",
+        blurb:
+          "A safe hand wash, clay, and wax that wakes up the color, adds gloss, and helps the paint shrug off road grime and salt.",
+        icon: CarFront,
+      },
+      {
+        number: "03",
+        title: "Full Detail",
+        href: "/services/full-detail/",
+        blurb:
+          "Inside and out, top to bottom. The full reset — your car comes back looking and feeling like the day you got it.",
+        icon: Sparkles,
+      },
+    ],
+  },
+
+  /* --- Alternating image + text feature sections --- */
+  features: [
+    {
+      eyebrow: "Exterior & paint",
+      heading: "Bring the paint back to life.",
+      body: "A real hand wash, clay bar, and hand-applied wax do more than make your car shine — they pull off bonded grime and lay down protection against water spots and Michigan road salt. No automated brushes, no swirl marks, ever.",
+      cta: "Start your quote",
+      imageSide: "right" as "left" | "right",
+      image: {
+        src: "/images/gallery/kia-foam.jpg",
+        alt: "An SUV covered in wash foam during an on-site exterior detail",
+        placeholderLabel: "Feature — exterior foam wash in progress (real Jaws photo)",
+      },
+    },
+    {
+      eyebrow: "Interior detailing",
+      heading: "The inside, handled like our own.",
+      body: "Wheel, dash, console, leather, and every seam — vacuumed, wiped, and conditioned. We get into the spots a quick wash always misses, so the cabin smells clean and looks cared-for. Pet hair and ground-in mess included.",
+      cta: "Start your quote",
+      imageSide: "left" as "left" | "right",
+      image: {
+        src: "/images/interior.jpg",
+        alt: "A detailed car interior with clean black leather seats, a spotless steering wheel and dashboard",
+        placeholderLabel: "Feature — clean interior, wheel + leather (real Jaws photo)",
+      },
+    },
+  ],
+
+  /* --- Why choose us / the difference ---
+   * Trust signals Jaws can actually stand behind (no awards, no review counts).
+   */
+  whyUs: {
+    eyebrow: "The Jaws difference",
+    heading: "Booked around your life, done to our standard.",
+    body: "We're a local, owner-operated detailer — not a franchise and not a quick-rinse car wash. Every car gets the same hands-on attention, and we don't pack up until it looks the way it should.",
+    bullets: [
+      "Satisfaction guaranteed — if something isn't right, we make it right",
+      "Fully mobile — we come to your home or office",
+      "Locally owned and operated, start to finish",
+      "Pro-grade products and safe wash methods on every vehicle",
+    ],
+    image: {
+      src: "/images/gallery/kia-front.jpg",
+      alt: "A clean, glossy SUV after a full detail in a driveway",
+      placeholderLabel: "Why us — strong finished-car photo (real Jaws photo)",
+    },
+  },
+
+  /* --- FAQ (accordion) --- */
+  faq: {
+    eyebrow: "Good to know",
+    heading: "Questions, answered.",
+    items: [
+      {
+        q: "Do you really come to me?",
+        a: "Yes — we're fully mobile. We detail at your home, your office, or anywhere the car is parked with a bit of room to work around it.",
+      },
+      {
+        q: "What do you need from me on the day?",
+        a: "Just a place to park the car and access to it. We bring our own water, power, and everything else. If you have a preferred spot — driveway, garage, lot — let us know.",
+      },
+      {
+        q: "How long does a detail take?",
+        a: "It depends on the vehicle's size and condition and the service you pick. A quick wash is well under an hour; a full inside-and-out detail usually takes a few hours. We give you a time estimate when we book.",
+      },
+      {
+        q: "What areas do you cover?",
+        a: "We cover Ann Arbor and most of Southeast Michigan. If you're not sure whether we reach you, just ask — we'll let you know straight.",
+      },
+      {
+        q: "What kinds of vehicles do you detail?",
+        a: "Cars, trucks, SUVs, and vans of just about any size. Tell us the year, make, and model when you book so we show up with the right setup.",
+      },
+      {
+        q: "How do I book and pay?",
+        a: "Send a quick quote request or call us — we'll confirm a time and a price by text. You pay once the work is done and you've seen the result.",
+      },
+    ],
+  },
+
+  /* --- Service areas (city cards → /service-areas/<slug>/ pages) ---
+   * Only real towns Joey serves, each with its OWN copy (no thin duplicates).
+   * Add or remove cities here — the grid, dropdown, pages, and sitemap all follow.
+   * TODO: confirm the real coverage list + tighten each blurb with Joey's local
+   * knowledge (neighborhoods, drive radius). Drop a real photo per city later.
+   */
+  serviceAreas: [
+    {
+      name: "Ann Arbor",
+      slug: "ann-arbor",
+      blurb: "Mobile detailing across Ann Arbor — we come to your driveway, lot, or office.",
+      intro:
+        "From Burns Park to the north side, parking in Ann Arbor is tight and time is tighter. We bring the detail to you, so a clean car doesn't cost you a trip across town or an afternoon in a waiting room.",
+      neighborhoods: ["Burns Park", "Kerrytown", "Old West Side", "North Campus"],
+      image: { src: "", alt: "Mobile auto detailing in Ann Arbor, Michigan", placeholderLabel: "Area — Ann Arbor (neutral local shot OK)" },
+    },
+    {
+      name: "Ypsilanti",
+      slug: "ypsilanti",
+      blurb: "On-site detailing in Ypsilanti and Ypsi Township — home, work, or campus.",
+      intro:
+        "Around Depot Town, EMU, and the older neighborhoods off Michigan Ave, we handle everything from a quick maintenance wash to a full detail right where the car sits. No drop-off, no shuttle.",
+      neighborhoods: ["Depot Town", "Downtown Ypsilanti", "West Willow"],
+      image: { src: "", alt: "Mobile auto detailing in Ypsilanti, Michigan", placeholderLabel: "Area — Ypsilanti (neutral local shot OK)" },
+    },
+    {
+      name: "Saline",
+      slug: "saline",
+      blurb: "Full mobile detailing throughout Saline — we cover the whole town.",
+      intro:
+        "Saline's an easy run for us, and being mobile means you don't have to drive into Ann Arbor for a proper detail. We pull up to your place and handle it start to finish.",
+      neighborhoods: ["Downtown Saline", "Travis Pointe"],
+      image: { src: "", alt: "Mobile auto detailing in Saline, Michigan", placeholderLabel: "Area — Saline (neutral local shot OK)" },
+    },
+    {
+      name: "Canton",
+      slug: "canton",
+      blurb: "Detailing that comes to your Canton driveway — built for busy schedules.",
+      intro:
+        "Canton's spread out and most days are already full. Mobile detailing is built for exactly that: we come to the subdivision, the office park, wherever the car is, and you get your time back.",
+      neighborhoods: ["Cherry Hill", "Sunflower", "Central Canton"],
+      image: { src: "", alt: "Mobile auto detailing in Canton, Michigan", placeholderLabel: "Area — Canton (neutral local shot OK)" },
+    },
+    {
+      name: "Plymouth",
+      slug: "plymouth",
+      blurb: "On-site car detailing in Plymouth — at home or at the office.",
+      intro:
+        "Whether you're near downtown Plymouth or out toward the township, we bring the full setup to you. Book it for the driveway or have us meet the car at work — your call.",
+      neighborhoods: ["Downtown Plymouth", "Plymouth Township"],
+      image: { src: "", alt: "Mobile auto detailing in Plymouth, Michigan", placeholderLabel: "Area — Plymouth (neutral local shot OK)" },
+    },
+    {
+      name: "Belleville",
+      slug: "belleville",
+      blurb: "Mobile detailing around Belleville and the lake — trucks and SUVs welcome.",
+      intro:
+        "Out by Belleville Lake there's no shortage of trucks and SUVs that earn their dirt. We come to you and get them back to clean — inside, out, and the spots a quick wash always misses.",
+      neighborhoods: ["Belleville Lake", "Van Buren Township", "Sumpter"],
+      image: { src: "", alt: "Mobile auto detailing in Belleville, Michigan", placeholderLabel: "Area — Belleville (neutral local shot OK)" },
+    },
+  ],
+  serviceAreasPage: {
+    eyebrow: "Service areas",
+    heading: "Mobile detailing across Southeast Michigan.",
+    sub: "We come to you. Find your town below — and if you don't see it, just ask. We cover most of the region.",
   },
 
   /* --- Before / after slider (the signature element) --- */
@@ -269,41 +473,13 @@ export const site = {
     afterLabel: "After",
   },
 
-  /* --- Service area ---
-   * TODO: replace with Joey's actual towns/ZIPs. These are SE-Michigan
-   * placeholders near the 734 area so previews look populated — confirm before launch.
-   */
-  serviceArea: [
-    "Ann Arbor",
-    "Ypsilanti",
-    "Saline",
-    "Canton",
-    "Plymouth",
-    "Belleville",
-    "Dexter",
-    "Chelsea",
-  ] as string[],
-  serviceAreaNote:
-    "Not sure if we reach you? Ask — we cover most of Southeast Michigan.",
-
   /* --- Reviews / social proof ---
-   * 5.0 on Google. Quotes are intentionally EMPTY placeholders — do not invent.
-   * Paste 2 real review quotes + author first names when Joey provides them.
+   * INTENTIONALLY OMITTED. Jaws is a newer business and can't back star counts,
+   * "#1 / top-rated", or a testimonials wall yet — fabricating them reads as fake
+   * and is legally risky. Trust is carried by the `trust`, `whyUs`, and guarantee
+   * copy instead. Add a real reviews section here only once Joey has verifiable
+   * Google reviews to quote verbatim.
    */
-  reviews: {
-    rating: 5.0,
-    source: "Google",
-    // One-click "leave a review" link from Joe's Google Business Profile
-    // (Business Profile -> "Ask for reviews"). Paste the shareable URL — usually
-    // https://g.page/r/<id>/review or https://search.google.com/local/writereview?placeid=...
-    // The raw Google review data blob is NOT a usable URL on its own.
-    googleReviewUrl: "", // TODO: paste Joe's review link
-    quotes: [
-      // TODO: paste Joe's 2 Google reviews verbatim (quote + first name). Do not invent.
-      { quote: "", author: "", context: "Google review" },
-      { quote: "", author: "", context: "Google review" },
-    ] satisfies Review[],
-  },
 
   /* --- Hours --- (closes 7:30 PM is the one confirmed fact)
    * TODO: confirm open times + which days Joey actually works. Placeholders below.
@@ -358,14 +534,34 @@ export const site = {
     url:
       process.env.NEXT_PUBLIC_CRM_URL ||
       "https://www.alignandacquire.com/api/contact",
-    businessSlug: process.env.NEXT_PUBLIC_BUSINESS_SLUG || "REPLACE_ME_FRIDAY",
+    businessSlug: process.env.NEXT_PUBLIC_BUSINESS_SLUG || "jaws-auto-detailing",
   },
 
-  /* --- Contact section copy --- */
+  /* --- Contact section copy ---
+   * The form captures richer detailing info (vehicle, detail type, add-ons) but
+   * the CRM payload stays {name,phone,email,message,smsConsent,businessSlug} —
+   * those extra answers are folded into `message` as clean text in ContactForm.tsx.
+   */
   contact: {
     eyebrow: "Get a quote",
     heading: "Book your detail.",
     sub: "Tell us about your car and where it is. We'll text you back fast with a time and a price.",
+    vehicleLabel: "Vehicle (year, make & model)",
+    vehiclePlaceholder: "e.g. 2019 Toyota RAV4",
+    detailTypeLabel: "What kind of detail?",
+    detailTypes: ["Interior", "Exterior", "Full detail", "Not sure yet"],
+    addOnsLabel: "Add-ons (optional)",
+    // TODO: confirm Joey's actual add-on menu + pricing.
+    addOns: [
+      "Ceramic coating",
+      "Paint correction",
+      "Headlight restoration",
+      "Pet hair removal",
+      "Engine bay",
+      "Steam clean",
+      "Clay bar / decon",
+      "Shampoo & extraction",
+    ],
     consentLabel:
       "I agree to receive text messages from Jaws Auto Detailing about my request. Message and data rates may apply. Reply STOP to opt out.",
     successHeading: "Thanks — we've got it.",
@@ -382,9 +578,8 @@ export const site = {
   cta: {
     label: "Book a detail",
     href: "/get-a-quote/",
-    // Short kickers shown above the CTA at high-intent moments.
+    // Short kicker shown above the CTA after the before/after slider.
     afterSliderKicker: "Want results like this on your car?",
-    afterReviewsKicker: "Ready for the 5-star treatment?",
     // Sticky mobile bar
     callLabel: "Call",
   },
@@ -428,11 +623,15 @@ export const site = {
 
   /* --- Services index page copy --- */
   servicesPage: {
-    eyebrow: "Services",
+    eyebrow: "Services & pricing",
     heading: "Everything we can do for your car.",
     sub: "From a quick maintenance wash to a full inside-and-out detail. Tap any service to see exactly what's included — and remember, we come to you.",
     detailIncludesHeading: "What's included",
     detailOtherHeading: "Other services",
+    // Pricing placeholder until Joey gives final numbers. Shown on the services page.
+    // TODO: replace with real package pricing (or a starting-price table).
+    pricingNote:
+      "Pricing depends on your vehicle's size and condition. Send a quick quote request and we'll text you a clear, upfront price — no surprises.",
   },
 
   /* --- Gallery / "Our work" page ---
@@ -474,13 +673,16 @@ export const site = {
     ],
   },
 
-  /* --- Nav (top-level pages) --- */
+  /* --- Nav (top-level pages) ---
+   * `dropdown: "serviceAreas"` tells Header to render the city flyout from
+   * site.serviceAreas (so the menu stays in sync with the areas list automatically).
+   */
   nav: [
     { label: "Home", href: "/" },
-    { label: "Services", href: "/services/" },
+    { label: "Service Areas", href: "/service-areas/", dropdown: "serviceAreas" as const },
+    { label: "Services & Pricing", href: "/services/" },
     { label: "Gallery", href: "/gallery/" },
     { label: "About", href: "/about/" },
-    { label: "Get a quote", href: "/get-a-quote/" },
   ],
 
   /* --- SEO (per page; mirrors the lawn site's route structure) --- */
@@ -496,9 +698,15 @@ export const site = {
       },
       services: {
         path: "/services/",
-        title: "Detailing Services — Jaws Auto Detailing | Southeast Michigan",
+        title: "Detailing Services & Pricing — Jaws Auto Detailing | Southeast Michigan",
         description:
           "All of our mobile detailing services: full details, interior cleaning, hand waxing, clay bar, engine bay, and full body washes. We come to you across Southeast Michigan.",
+      },
+      serviceAreas: {
+        path: "/service-areas/",
+        title: "Service Areas — Jaws Auto Detailing | Mobile Detailing in SE Michigan",
+        description:
+          "Jaws Auto Detailing brings mobile car detailing to Ann Arbor, Ypsilanti, Saline, Canton, Plymouth, Belleville, and across Southeast Michigan. We come to you.",
       },
       gallery: {
         path: "/gallery/",
@@ -533,7 +741,18 @@ export type Site = typeof site;
 /** Readonly service item (site is `as const`, so use this for component props). */
 export type ServiceItem = (typeof site)["services"][number];
 
+/** Readonly service-area city (use for component props + the dynamic city route). */
+export type ServiceAreaCity = (typeof site)["serviceAreas"][number];
+
+/** Readonly homepage "pillar" service (hero cards + Popular Services). */
+export type Pillar = (typeof site)["popular"]["pillars"][number];
+
 /** Look up a service by its slug (used by the dynamic /services/<slug>/ route). */
 export function getServiceBySlug(slug: string): ServiceItem | undefined {
   return site.services.find((s) => s.slug === slug);
+}
+
+/** Look up a service area by its slug (used by the /service-areas/<slug>/ route). */
+export function getServiceAreaBySlug(slug: string): ServiceAreaCity | undefined {
+  return site.serviceAreas.find((a) => a.slug === slug);
 }

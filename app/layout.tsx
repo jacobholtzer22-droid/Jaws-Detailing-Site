@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Hanken_Grotesk } from "next/font/google";
 import { site } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
+import { businessJsonLd, jsonLdScript } from "@/lib/jsonld";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
@@ -44,6 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="bg-ink font-body text-bone antialiased">
+        {/* LocalBusiness structured data (derived from site.config). */}
+        <script {...jsonLdScript(businessJsonLd())} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-chrome focus:px-4 focus:py-2 focus:font-semibold focus:text-bone"

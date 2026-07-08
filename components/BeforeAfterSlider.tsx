@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { MoveHorizontal } from "lucide-react";
 import { site } from "@/site.config";
@@ -51,8 +51,34 @@ function Layer({
 export default function BeforeAfterSlider() {
   const { beforeAfter, images } = site;
   const [pos, setPos] = useState(50);
+  const [hint, setHint] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+  const hintFired = useRef(false);
+
+  // One-time "this slides" nudge when the slider first scrolls into view.
+  // Fires at most once per page load; skipped entirely under reduced motion.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || hintFired.current) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !hintFired.current) {
+            hintFired.current = true;
+            setHint(true);
+            observer.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const setFromClientX = useCallback((clientX: number) => {
     const el = containerRef.current;
@@ -147,7 +173,9 @@ export default function BeforeAfterSlider() {
               aria-valuenow={Math.round(pos)}
               aria-valuetext={`${Math.round(pos)}% before, ${100 - Math.round(pos)}% after`}
               onKeyDown={onKeyDown}
-              className="pointer-events-auto absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border-2 border-chrome bg-ink text-chrome shadow-lg"
+              className={`pointer-events-auto absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border-2 border-chrome bg-ink text-chrome shadow-lg ${
+                hint ? "drag-hint" : ""
+              }`}
             >
               <MoveHorizontal className="h-5 w-5" aria-hidden="true" />
             </button>

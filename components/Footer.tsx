@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { Phone, MapPin } from "lucide-react";
 import { site } from "@/site.config";
 import { DAY_ORDER, dayLabel, formatDayHours } from "@/lib/format";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -9,7 +11,7 @@ export default function Footer() {
     <footer className="bg-ink-deep text-bone">
       {/* Extra bottom padding on mobile so the sticky CTA bar never covers the credit. */}
       <div className="container-page py-16 pb-28 lg:pb-16">
-        <div className="grid gap-10 lg:grid-cols-4">
+        <div className="grid gap-10 lg:grid-cols-5">
           {/* Brand + contact */}
           <div className="lg:col-span-2">
             <div className="h-display text-2xl text-bone">
@@ -30,6 +32,7 @@ export default function Footer() {
               <MapPin className="h-4 w-4 text-chrome" aria-hidden="true" />
               {site.business.region}
             </p>
+            <SocialLinks className="mt-5 text-steel-light" iconClassName="h-5 w-5" />
           </div>
 
           {/* Nav */}
@@ -40,12 +43,31 @@ export default function Footer() {
             <ul className="mt-2">
               {site.nav.map((item) => (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
                     className="inline-flex min-h-[44px] items-center text-sm text-steel-light transition-colors hover:text-bone"
                   >
                     {item.label}
-                  </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Service areas */}
+          <nav aria-label="Service areas">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-steel">
+              Service areas
+            </h2>
+            <ul className="mt-2">
+              {site.serviceAreas.map((city) => (
+                <li key={city.slug}>
+                  <Link
+                    href={`/service-areas/${city.slug}/`}
+                    className="inline-flex min-h-[40px] items-center text-sm text-steel-light transition-colors hover:text-bone"
+                  >
+                    {city.name}
+                  </Link>
                 </li>
               ))}
             </ul>

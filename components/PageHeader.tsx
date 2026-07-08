@@ -10,7 +10,7 @@ type Props = {
  */
 export default function PageHeader({ eyebrow, title, sub }: Props) {
   return (
-    <section className="bg-ink pb-12 pt-28 text-bone sm:pb-16 sm:pt-36">
+    <section className="band-wash bg-ink pb-12 pt-28 text-bone sm:pb-16 sm:pt-36">
       <div className="container-page max-w-3xl">
         <p className="eyebrow mb-4">{eyebrow}</p>
         <h1 className="h-display text-4xl text-bone sm:text-5xl lg:text-6xl">
