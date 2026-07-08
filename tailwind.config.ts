@@ -41,6 +41,12 @@ const config: Config = {
       maxWidth: {
         page: "1200px",
       },
+      // Navy-tinted elevation scale (derived from ink #06122A) — one consistent
+      // shadow language for cards and their hover state.
+      boxShadow: {
+        card: "0 1px 2px rgba(6, 18, 42, 0.06), 0 10px 30px -14px rgba(6, 18, 42, 0.22)",
+        "card-lift": "0 12px 28px -10px rgba(6, 18, 42, 0.30), 0 3px 8px rgba(6, 18, 42, 0.12)",
+      },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(12px)" },
@@ -48,7 +54,7 @@ const config: Config = {
         },
       },
       animation: {
-        "fade-up": "fade-up 0.6s ease-out both",
+        "fade-up": "fade-up 0.5s ease-out both",
       },
     },
   },

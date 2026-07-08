@@ -65,7 +65,7 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg font-body text-sm font-semibold transition-colors duration-200 focus-visible:outline-offset-4;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg font-body text-sm font-semibold transition-[color,background-color,border-color,transform,box-shadow] duration-200 ease-out focus-visible:outline-offset-4 active:scale-[0.97];
   }
 
   .btn-primary {
@@ -83,5 +83,61 @@
   /* Thin chrome divider — the "reflection sweep" motif between bands. */
   .chrome-rule {
     @apply h-px w-full bg-gradient-to-r from-transparent via-chrome/50 to-transparent;
+  }
+
+  /* --- Scroll reveal --------------------------------------------------------
+   * The hidden state (.sr-out) is applied ONLY by ScrollReveal.tsx after mount,
+   * and never to an element already in view. Server markup, no-JS, and
+   * reduced-motion users therefore always render fully visible.
+   * Transform + opacity only — no layout shift. */
+  .sr {
+    transition: opacity 500ms ease-out, transform 500ms ease-out;
+  }
+  .sr-out {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .sr-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Card hover-lift (transform + shadow + border only; no layout shift) --- */
+  .card-lift {
+    @apply transition-[transform,box-shadow,border-color] duration-200 ease-out;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+  }
+  .card-lift:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+
+  /* --- Subtle top-light wash for dark bands (static; intentionally NO red glow) --- */
+  .band-wash {
+    position: relative;
+    isolation: isolate;
+  }
+  .band-wash::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(115% 75% at 50% 0%, rgba(255, 255, 255, 0.055), transparent 60%),
+      linear-gradient(180deg, rgba(27, 60, 104, 0.28), transparent 42%);
+  }
+}
+
+/* Reduced motion: neutralize reveal transforms so nothing can get stuck hidden
+ * or shift. (The base block above also zeroes durations.) */
+@media (prefers-reduced-motion: reduce) {
+  .sr,
+  .sr-out,
+  .sr-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
