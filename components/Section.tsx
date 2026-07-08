@@ -9,8 +9,8 @@ type Props = {
 };
 
 const toneClasses: Record<Tone, string> = {
-  ink: "bg-ink text-bone",
-  panel: "bg-panel-dark text-bone",
+  ink: "bg-ink text-bone band-wash",
+  panel: "bg-panel-dark text-bone band-wash",
   bone: "bg-bone text-ink",
 };
 

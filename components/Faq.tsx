@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 import { site } from "@/site.config";
 import Section from "./Section";
+import ScrollReveal from "./ScrollReveal";
 
 /**
  * FAQ accordion built on native <details>/<summary> — fully keyboard accessible
@@ -12,12 +13,12 @@ export default function Faq() {
   return (
     <Section id="faq" tone="bone">
       <div className="mx-auto max-w-3xl">
-        <div className="text-center">
+        <ScrollReveal className="text-center">
           <p className="eyebrow mb-4 text-chrome-deep">{faq.eyebrow}</p>
           <h2 className="h-display text-3xl text-ink sm:text-4xl">{faq.heading}</h2>
-        </div>
+        </ScrollReveal>
 
-        <div className="mt-10 divide-y divide-ink/10 border-y border-ink/10">
+        <ScrollReveal delay={60} className="mt-10 divide-y divide-ink/10 border-y border-ink/10">
           {faq.items.map((item) => (
             <details key={item.q} className="group py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
@@ -29,12 +30,12 @@ export default function Faq() {
                   aria-hidden="true"
                 />
               </summary>
-              <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink/65">
+              <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink/70">
                 {item.a}
               </p>
             </details>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </Section>
   );
