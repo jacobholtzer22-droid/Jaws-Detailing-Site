@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 import { site, type ServiceItem } from "@/site.config";
+import ScrollReveal from "./ScrollReveal";
 
 /** Body of a /services/<slug>/ detail page: overview + what's included + other services. */
 export default function ServiceDetail({ service }: { service: ServiceItem }) {
@@ -13,7 +14,7 @@ export default function ServiceDetail({ service }: { service: ServiceItem }) {
       {/* Overview + what's included — bone band */}
       <section className="bg-bone py-16 text-ink sm:py-20">
         <div className="container-page grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-          <div>
+          <ScrollReveal>
             <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-ink text-chrome">
               <Icon className="h-7 w-7" aria-hidden="true" />
             </span>
@@ -23,9 +24,12 @@ export default function ServiceDetail({ service }: { service: ServiceItem }) {
             <a href={cta.href} className="btn-dark mt-8 px-7 py-4 text-base">
               {cta.label}
             </a>
-          </div>
+          </ScrollReveal>
 
-          <div className="rounded-2xl border border-ink/10 bg-white/60 p-7 sm:p-8">
+          <ScrollReveal
+            delay={80}
+            className="rounded-2xl border border-ink/10 bg-white/60 p-7 shadow-card sm:p-8"
+          >
             <h2 className="h-display text-lg text-ink">
               {servicesPage.detailIncludesHeading}
             </h2>
@@ -51,38 +55,41 @@ export default function ServiceDetail({ service }: { service: ServiceItem }) {
               <p className="text-xs font-semibold uppercase tracking-wider text-ink/45">
                 Pricing
               </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink/65">
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/70">
                 {servicesPage.pricingNote}
               </p>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Other services — ink band */}
-      <section className="bg-ink py-16 text-bone sm:py-20">
+      <section className="band-wash bg-ink py-16 text-bone sm:py-20">
         <div className="container-page">
-          <p className="eyebrow mb-6">{servicesPage.detailOtherHeading}</p>
+          <ScrollReveal>
+            <p className="eyebrow mb-6">{servicesPage.detailOtherHeading}</p>
+          </ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {others.map((s) => {
+            {others.map((s, i) => {
               const OIcon = s.icon;
               return (
-                <Link
-                  key={s.slug}
-                  href={`/services/${s.slug}/`}
-                  className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-panel p-5 transition-colors hover:border-chrome/50"
-                >
-                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-chrome">
-                    <OIcon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <span className="font-display text-sm font-bold uppercase tracking-tight text-bone">
-                    {s.title}
-                  </span>
-                  <ArrowRight
-                    className="ml-auto h-4 w-4 text-steel transition-transform group-hover:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
+                <ScrollReveal key={s.slug} delay={i * 45} className="flex">
+                  <Link
+                    href={`/services/${s.slug}/`}
+                    className="group card-lift flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-panel p-5 hover:border-chrome/50"
+                  >
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-chrome">
+                      <OIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="font-display text-sm font-bold uppercase tracking-tight text-bone">
+                      {s.title}
+                    </span>
+                    <ArrowRight
+                      className="ml-auto h-4 w-4 text-steel transition-transform group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </ScrollReveal>
               );
             })}
           </div>
