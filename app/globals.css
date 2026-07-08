@@ -102,9 +102,9 @@
     transform: translateY(0);
   }
 
-  /* --- Card hover-lift (transform + shadow + border only; no layout shift) --- */
+  /* --- Card hover-lift (transform + shadow + border/bg only; no layout shift) --- */
   .card-lift {
-    @apply transition-[transform,box-shadow,border-color] duration-200 ease-out;
+    @apply transition-[transform,box-shadow,border-color,background-color] duration-200 ease-out;
   }
   .card-lift:hover {
     transform: translateY(-3px);
