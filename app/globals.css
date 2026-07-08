@@ -141,3 +141,16 @@
     transition: none !important;
   }
 }
+
+/* One-time "this slides" affordance for the before/after handle. Transform only;
+ * start/end frame equals the handle's resting translate so there is no jump.
+ * The base reduced-motion rule above zeroes the duration; the component also
+ * skips arming it entirely under reduced motion. */
+@keyframes drag-hint {
+  0% { transform: translate(-50%, -50%); }
+  45% { transform: translate(calc(-50% + 10px), -50%); }
+  100% { transform: translate(-50%, -50%); }
+}
+.drag-hint {
+  animation: drag-hint 520ms ease-out;
+}
