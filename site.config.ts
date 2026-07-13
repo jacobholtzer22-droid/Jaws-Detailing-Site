@@ -72,6 +72,18 @@ export const site = {
     address: "", // TODO: street address if he wants one shown (mobile biz — optional). e.g. "Belleville, MI"
   },
 
+  /* --- Logo ---
+   * Real brand lockup (red JAWS + navy shark/car, "AUTO DETAILING Michigan") on
+   * its cream plate. `mark` is the compact top-crop used in the header; `full` is
+   * the whole lockup used large in the footer. Both live in /public. Leave `mark`
+   * "" to fall back to the text wordmark. Favicon is app/icon.png (auto-served).
+   */
+  logo: {
+    mark: "/logo-mark.png",
+    full: "/logo-full.png",
+    alt: "Jaws Auto Detailing — shark and car logo",
+  },
+
   /* --- Social links ---
    * Leave a value "" to hide that icon. No fabricated profiles — paste Joey's
    * real handles before launch. TODO: confirm.
