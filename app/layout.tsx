@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Hanken_Grotesk } from "next/font/google";
+import Script from "next/script";
 import { site } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
 import { businessJsonLd, jsonLdScript } from "@/lib/jsonld";
+import { GA_ADS_ID } from "@/lib/gtag";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
+import CallClickTracker from "@/components/CallClickTracker";
 import "./globals.css";
 
 /* Display: Archivo loaded with the width axis so we can run it expanded
@@ -45,6 +48,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body className="bg-ink font-body text-bone antialiased">
+        {/* Google Ads global site tag (gtag.js) — fires on every page load. */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ADS_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ADS_ID}');`}
+        </Script>
+
         {/* LocalBusiness structured data (derived from site.config). */}
         <script {...jsonLdScript(businessJsonLd())} />
         <a
@@ -57,6 +72,7 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <Footer />
         <MobileCtaBar />
+        <CallClickTracker />
       </body>
     </html>
   );

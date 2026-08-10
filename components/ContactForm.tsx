@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Phone, Check, Loader2, AlertTriangle } from "lucide-react";
 import { site } from "@/site.config";
+import { trackContactConversion } from "@/lib/gtag";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -60,6 +61,8 @@ export default function ContactForm() {
 
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       setStatus("success");
+      // Google Ads conversion — best-effort, never throws (see lib/gtag.ts).
+      trackContactConversion();
     } catch {
       // Keep the user's typed input on failure — never wipe it.
       setStatus("error");
