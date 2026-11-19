@@ -44,6 +44,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
+      <head>
+        <script defer src="https://www.alignandacquire.com/t/s/jaws-auto-detailing.js"></script>
+      </head>
       <body className="bg-ink font-body text-bone antialiased">
         {/* LocalBusiness structured data (derived from site.config). */}
         <script {...jsonLdScript(businessJsonLd())} />
