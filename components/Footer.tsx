@@ -106,8 +106,8 @@ export default function Footer() {
           <p>
             © {year} {site.business.name}. All rights reserved.
             {" "}·{" "}
-            <Link href="/privacy" className="transition-colors hover:text-bone">Privacy</Link>{" "}·{" "}
-            <a href="#" data-aa-cookie-settings hidden className="transition-colors hover:text-bone">Cookie settings</a>
+            <Link href="/privacy" className="transition-colors hover:text-bone">Privacy</Link>
+            <span hidden data-aa-cookie-wrap>{" "}·{" "}<a href="#" data-aa-cookie-settings className="transition-colors hover:text-bone">Cookie settings</a></span>
           </p>
           <p>{site.footer.credit}</p>
         </div>
